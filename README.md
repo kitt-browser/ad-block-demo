@@ -1,5 +1,5 @@
 Ad Block Demo
 =============
 
-Ad blocker POC based on `chrome.webRequest` blocking API
+Ad blocker proof of concept based on `chrome.webRequest` blocking API
 

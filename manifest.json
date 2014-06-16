@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "AdBlockDemo",
+  "version": "0.1.19",
+  "author": "Pavel Zdenek",
+  "description": "Ad Block proof of concept based on chrome.webRequest blocking API",
+  "icons": {
+    "256": "images/shield.png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "js/content.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "vendor/URI.js",
+      "js/background.js"
+    ]
+  },
+  "permissions": [
+    "background",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
+  ]
+}

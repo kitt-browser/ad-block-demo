@@ -1,0 +1,25 @@
+machine:
+  environment:
+    S3_BUCKET: 'kitt-extensions'
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - S3_FOLDER='prod' grunt upload
+  develop:
+    branch: develop
+    commands:
+      - S3_FOLDER='dev' grunt upload
+  staging:
+    branch: client
+    commands:
+      - S3_FOLDER='client' grunt upload
+  qa:
+    branch: /release\/.+/
+    commands:
+      - S3_FOLDER='qa' grunt upload
+  try:
+    branch: /try.*/
+    commands:
+      - S3_FOLDER='try' grunt upload

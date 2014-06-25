@@ -20,3 +20,19 @@ chrome.webRequest.onBeforeRequest.addListener(
   {urls: ["<all_urls>"]},
   ["blocking"]
 );
+
+chrome.webRequest.onHeadersReceived.addListener(
+  function(details) {
+    // echo back the original and add testing header
+    var newHeaders = details.responseHeaders;
+    newHeaders['X-Kitt-HeadersTest'] = "Headers Test Value";
+    return { responseHeaders: newHeaders };
+  },
+  {urls: ["<all_urls>"]},
+  ["blocking"]
+);
+
+// just test
+chrome.webRequest.handlerBehaviorChanged(function() {
+  console.log("Handler behavior change notified");
+});

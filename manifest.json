@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "AdBlockDemo",
-  "version": "0.1.29",
+  "version": "0.1.42",
   "author": "Pavel Zdenek",
   "description": "Ad Block proof of concept based on chrome.webRequest blocking API",
   "icons": {
@@ -28,6 +28,7 @@
     "tabs",
     "webRequest",
     "webRequestBlocking",
+    "webNavigation",
     "<all_urls>"
   ]
 }

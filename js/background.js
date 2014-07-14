@@ -12,6 +12,10 @@ function onBeforeRequestHandler(details) {
       break;
     }
   }
+  if(cancel) {
+// Good for debugging but too much noise otherwise
+//    console.log('Cancel',details.url);  	
+  }
   return { cancel: cancel };
 }
 
@@ -25,7 +29,11 @@ chrome.webRequest.onHeadersReceived.addListener(
   function(details) {
     // echo back the original and add testing header
     var newHeaders = details.responseHeaders;
+    if(newHeaders) {
     newHeaders['X-Kitt-HeadersTest'] = "Headers Test Value";
+// Good for debugging but too much noise otherwise
+//    console.log('Modifying headers',details.url);    	
+    }
     return { responseHeaders: newHeaders };
   },
   {urls: ["<all_urls>"]},
@@ -35,4 +43,28 @@ chrome.webRequest.onHeadersReceived.addListener(
 // just test
 chrome.webRequest.handlerBehaviorChanged(function() {
   console.log("Handler behavior change notified");
+});
+
+// no filter
+chrome.webNavigation.onCreatedNavigationTarget.addListener(function(details) {
+  console.log('CreatedNavigationTarget',
+  	'tab', details.tabId,
+  	'srctab', details.sourceTabId,
+  	'srcframe', details.sourceFrameId,
+  	'ts', details.timeStamp,
+  	details.url);
+});
+// some filter
+chrome.webNavigation.onBeforeNavigate.addListener(function(details) {
+  console.log('BeforeNavigate',
+  	'tab', details.tabId,
+  	'frame', details.frameId,
+  	'pframe', details.parentFrameId,
+  	'ts', details.timeStamp,
+  	details.url);
+},
+{ url:[
+  { hostSuffix:'.com' },
+  { schemes:['https'] }
+	  ]
 });
